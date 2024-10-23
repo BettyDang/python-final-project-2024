@@ -3,7 +3,7 @@ Catching pokemon and Pokemon battle
 
 Catch pokemon with random type.  
 Battle with NPC (limited npc).  
-Evole pokemon by combining duplicate (fibonacci sequence).
+Level pokemon by combining duplicate (fibonacci sequence).
 
 ## Technologies
 [List any technologies or libraries you think you might use]
