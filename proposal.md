@@ -7,6 +7,11 @@ Evole pokemon by combining duplicate (fibonacci sequence).
 
 ## Technologies
 [List any technologies or libraries you think you might use]
+
+https://pokeapi.co/docs/v2
+https://pypi.org/project/Flask/
+
+
 ## Project Timeline
 - Week 4: Project initialization and setup
 - Week 5: First meaningful commit beyond initial setup
