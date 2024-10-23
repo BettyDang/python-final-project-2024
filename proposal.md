@@ -8,7 +8,7 @@ Evole pokemon by combining duplicate (fibonacci sequence).
 ## Technologies
 [List any technologies or libraries you think you might use]
 
-https://pokeapi.co/docs/v2
+https://pokeapi.co/docs/v2  
 https://pypi.org/project/Flask/
 
 
