@@ -1,7 +1,9 @@
-# [Your Project Title]
-## Catching Pokemon With Randomize type roul
+# [Pokémon Catch & Clash]
+## Catching pokemon and Pokemon battle
 [Provide a brief overview of your project, 2-3 sentences]
-## Main Idea
+## A way to catch pokemon with random type appearance
+## A small Battle with NPC (limited npc)
+## A way to evole pokemon by combining duplicate (fibanocci sequence)
 [Describe the core concept or functionality of your project]
 ## Technologies
 [List any technologies or libraries you think you might use]
