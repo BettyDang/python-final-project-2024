@@ -1,9 +1,9 @@
 # [Pokémon Catch & Clash]
 Catching pokemon and Pokemon battle
 
-A way to catch pokemon with random type appearance.  
-A small Battle with NPC (limited npc).  
-A way to evole pokemon by combining duplicate (fibanocci sequence).
+Catch pokemon with random type.  
+Battle with NPC (limited npc).  
+Evole pokemon by combining duplicate (fibonacci sequence).
 
 ## Technologies
 [List any technologies or libraries you think you might use]
