@@ -1,15 +1,12 @@
-# [Pokémon Catch & Clash]
-Catching pokemon and Pokemon battle
-
-Catch pokemon with random type.  
-Battle with NPC (limited npc).  
-Level pokemon by combining duplicate (fibonacci sequence).
+# [DexMaster]
+Pokemon 1st generation List with Data and Skill
 
 ## Technologies
 [List any technologies or libraries you think you might use]
 
 https://pokeapi.co/docs/v2  
-https://pypi.org/project/Flask/
+https://pypi.org/project/Flask/  
+https://www.serebii.net/pokemon/gen1pokemon.shtml
 
 
 ## Project Timeline
