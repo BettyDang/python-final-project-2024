@@ -1,8 +1,9 @@
 # [DexMaster]
-Pokemon 1st generation List with Data and Skill
 
-Search section: Name/
-                Type 
+Get to know Pokemon better  
+1st generation pokemon Data and Skill
+
+Search section: Name/Type  
 
 ## Technologies
 [List any technologies or libraries you think you might use]
