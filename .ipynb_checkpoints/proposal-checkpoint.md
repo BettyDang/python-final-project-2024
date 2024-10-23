@@ -1,5 +1,5 @@
 # [Your Project Title]
-## Catching Pokemon With Randomize type roul
+## Project Description
 [Provide a brief overview of your project, 2-3 sentences]
 ## Main Idea
 [Describe the core concept or functionality of your project]
