@@ -1,7 +1,7 @@
 # [DexMaster]
 Pokemon 1st generation List with Data and Skill
 
-Search section: Name 
+Search section: Name/
                 Type 
 
 ## Technologies
