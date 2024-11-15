@@ -1,0 +1,80 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f8f9fa;
+}
+
+.pokedex {
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+}
+
+#searchBar {
+    width: 80%;
+    padding: 10px;
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.pokemon-cards {
+    margin-top: 20px;
+}
+
+/* General styles for Pokémon cards */
+.pokemon-card {
+    border-radius: 10px;
+    padding: 16px;
+    margin: 10px;
+    color: #fff;
+}
+
+/* Type-specific background colors */
+.pokemon-card.type-electric {
+    background-color: #FFD700; /* Electric type */
+}
+
+.pokemon-card.type-grass {
+    background-color: #78C850; /* Grass type */
+}
+
+.pokemon-card.type-fire {
+    background-color: #F08030; /* Fire type */
+}
+
+.pokemon-card.type-water {
+    background-color: #6890F0; /* Water type */
+}
+
+.pokemon-card.type-dark {
+    background-color: #705746; /* Dark type */
+}
+
+.pokemon-card.type-dragon {
+    background-color: #7038F8; /* Dragon type */
+}
+
+.pokemon-card img {
+    width: 100px;
+    height: auto;
+}
+
+.pokemon-header {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.pokemon-abilities ul {
+    padding-left: 20px;
+}
+
