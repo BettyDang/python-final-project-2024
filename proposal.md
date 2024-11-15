@@ -3,7 +3,7 @@
 Get to know Pokemon better  
 1st generation pokemon Data and Skill
 
-Search section: Name/Type  
+Search section: Name/Type/Pokemon Number
 
 ## Technologies
 [List any technologies or libraries you think you might use]
