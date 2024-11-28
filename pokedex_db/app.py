@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, jsonify
 import pyodbc
+from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
@@ -12,10 +12,19 @@ def connect_to_db():
     )
     return conn
 
+# BLOCKED_IPS = {'127.0.0.1'}  # Add IPs you want to block
+#
+# def check_ip(f):
+#     @wraps(f)
+#     def wrapper(*args, **kwargs):
+#         if request.remote_addr in BLOCKED_IPS:
+#             return jsonify({'error': 'blocked'}), 403
+#         return f(*args, **kwargs)
+#     return wrapper
+
 @app.route('/')
 def index():
     return render_template('index.html')
-
 
 @app.route('/search', methods=['GET'])
 def search():
@@ -26,7 +35,7 @@ def search():
     results = perform_search(query) if query else fetch_all_pokemon()
 
     for result in results:
-        print(f"ID: {result.ID}, Name: {result.name}, Ability: {result.abilities}")
+        print(f"ID: {result.ID}, Name: {result.name}, Type: {result.type}")
 
     # Return a JSON response with all Pokémon details
     return jsonify([{
@@ -35,10 +44,12 @@ def search():
         'type': result.type, 
         'image_url': result.image_url,
         'hp': result.hp,
-        'attack': result.attack,
         'defense': result.defense,
+        'attack': result.attack,
         'speed': result.speed,
-        'abilities': result.abilities
+        'abilities': result.abilities,
+        'advantage': result.advantage,
+        'weaknesses' : result.weaknesses
     } for result in results])
 
 
@@ -49,7 +60,7 @@ def perform_search(query):
     try:
         # Modify the SQL query to search by name, ID, or type
         cursor.execute("""
-            SELECT ID, name, type, image_url, hp, attack, defense, speed, abilities
+            SELECT ID, name, type, image_url, hp, attack, defense, speed, abilities, advantage, weaknesses
             FROM Pokemon
             WHERE name LIKE ? OR ID LIKE ? OR type LIKE ?
         """, (f'%{query}%', f'%{query}%', f'%{query}%'))
@@ -69,7 +80,7 @@ def fetch_all_pokemon():
     cursor = conn.cursor()
     results = []
     try:
-        cursor.execute("SELECT * FROM Pokemon")  # Fetch all Pokémon
+        cursor.execute("SELECT * FROM pokemon")  # Fetch all Pokémon
         results = cursor.fetchall()
     except Exception as e:
         print("Error fetching all Pokémon:", e)

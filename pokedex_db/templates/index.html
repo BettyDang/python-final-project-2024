@@ -15,7 +15,7 @@
     <header class="search-bar">
         <input type="text" id="searchInput" placeholder="Search for Pokémon" oninput="searchPokemon()">
     </header>
-    <main>
+       <main>
         <div class="pokedex red-background">
             <div class="title" id="welcomeTitle">
                 <h1>Welcome To DexMaster</h1>
@@ -43,19 +43,19 @@
             const pokedexCard = document.getElementById('pokedexCard');
             pokedexCard.classList.add('red-background');
         }
-        
+
         pokemonCardsDiv.innerHTML = ''; // Clear previous results
         return;
     } else {
         welcomeTitle.style.display = 'none';
-        
+
         if (hasRedBackground) {
             for (let i = 0; i < redBackgroundElements.length; i++) {
                 redBackgroundElements[i].classList.remove('red-background'); // Remove red background from all elements
             }
         }
     }
-            
+
             // if (query === '') {
             //     pokemonCardsDiv.innerHTML = '<p>No Pokémon found</p>';
             //     return;
@@ -67,7 +67,7 @@
                 pokemonCardsDiv.innerHTML = '<p>Error fetching Pokémon</p>';
                 return;
             }
-            
+
             const pokemonList = await response.json();
             displayPokemonCards(pokemonList);
         }
@@ -81,10 +81,36 @@
                 return;
             }
 
-            pokemonList.forEach(pokemon => {
+            pokemonList.forEach((pokemon, index) => {
+                console.log('Pokemon List: ', pokemon);
                 const card = document.createElement('div');
                 const abilitiesArray = pokemon.abilities.split(',').map(ability => ability.trim());
                 const firstType = pokemon.type.split(',')[0].trim();
+                const advantageArray = pokemon.advantage.split(',').map(type => type.trim());
+                const weaknessesArray = pokemon.weaknesses.split(',').map(type => type.trim());
+
+                const typeImages = {
+                    'Water': "../static/images/water.png",
+                    'Rock': '../static/images/rock.png',
+                    'Fire': '../static/images/fire.png',
+                    'Flying': '../static/images/flying.png',
+                    'Grass': '../static/images/grass.png',
+                    'Electric': '../static/images/electric.png',
+                    'Bug': '../static/images/bug.png',
+                    'Dark': '../static/images/dark.png',
+                    'Dragon': '../static/images/dragon.png',
+                    'Fairy': '../static/images/fairy.png',
+                    'Fighting': '../static/images/fighting.png',
+                    'Ghost': '../static/images/ghost.png',
+                    'Ground': '../static/images/ground.png',
+                    'Ice': '../static/images/ice.png',
+                    'Normal': '../static/images/normal.png',
+                    'Poison': '../static/images/poison.png',
+                    'Psychic': '../static/images/psychic.png',
+                    'Steel': '../static/images/steel.png'
+                }
+
+
 
                 card.className =  `pokemon-card type-${firstType.toLowerCase()}`;
                 card.innerHTML = `
@@ -101,191 +127,52 @@
                                 <p>Speed: ${pokemon.speed || 'N/A'}</p>
                             </div>
                         </div>
-                        
-                        <div class="pokemon-abilities">
-                            <div>Ability:</div>
+
+                        <div class="pokemon-types">
+                            <div>
+                                <div class="type-header">Advantages:</div>
+                                <ul id="advantages-list-${index}"></ul>
+                            </div>
+                            <div>
+                                <div class="type-header">Weaknesses:</div>
+                                <ul id="weaknesses-list-${index}">
+                                </ul>
+                            </div>
+                            <div class="pokemon-abilities">
+                            <div class="abilities-header">Ability:</div>
                             <ul>
                                 ${abilitiesArray.map(ability => `
                                     <li>${ability}</li>
                                 `).join('')}
                             </ul>
                         </div>
-                    </div>
-                `;
+                        </div>
+                </div>
+            `;
                 pokemonCardsDiv.appendChild(card);
+                const advantagesList = document.getElementById(`advantages-list-${index}`);
+                advantageArray.forEach(type => {
+                    const listItem = document.createElement('li');
+                    const img = document.createElement('img');
+                    img.src = typeImages[type];
+                    img.alt = type;
+
+                    listItem.appendChild(img);
+                    advantagesList.appendChild(listItem);
+            });
+            const weaknessesList = document.getElementById(`weaknesses-list-${index}`);
+            weaknessesArray.forEach(type => {
+                const listItem = document.createElement('li');
+                const img = document.createElement('img');
+                img.src = typeImages[type]; // Map the type to the image
+                img.alt = type; // Add an alt tag for accessibility
+
+                listItem.appendChild(img); // Add the image to the list item
+                weaknessesList.appendChild(listItem); // Add the list item to the UL
+            });
             });
         }
     </script>
 </body>
 </html>
 
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokedex & Battle Helper</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/Card.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/list.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f0f0f0; padding: 20px; }
-        .pokemon-card { background: white; border-radius: 10px; padding: 20px; margin: 20px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .type-advantage { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
-        .type-badge { padding: 5px 10px; border-radius: 15px; color: white; font-size: 0.9em; }
-        .super-effective { background-color: #4CAF50; }
-        .not-effective { background-color: #f44336; }
-        .no-effect { background-color: #9e9e9e; }
-        select { padding: 8px; font-size: 16px; width: 200px; }
-    </style>
-</head>
-<body>
-    <header class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search for Pokémon" oninput="searchPokemon()">
-    </header>
-    
-    <main>
-        <h1>Pokemon Battle Helper</h1>
-
-        <!-- Pokemon Battle Helper Section -->
-        <!-- <div class="pokemon-card">
-            <h2>Select Your Pokemon</h2>
-            <select id="pokemonSelect">
-                <option value="">Choose a Pokemon...</option>
-            </select>
-            
-            <div id="pokemonInfo" style="display: none;">
-                <h3>Pokemon Details</h3>
-                <p>ID: <span id="pokemonId"></span></p>
-                <p>Name: <span id="pokemonName"></span></p>
-                <p>Type: <span id="pokemonType"></span></p>
-                
-                <h4>Type Advantages:</h4>
-                <div class="type-advantage">
-                    <div id="superEffective">
-                        <h5>Super Effective Against:</h5>
-                        <div id="superEffectiveTypes"></div>
-                    </div>
-                    <div id="notEffective">
-                        <h5>Not Very Effective Against:</h5>
-                        <div id="notEffectiveTypes"></div>
-                    </div>
-                    <div id="noEffect">
-                        <h5>No Effect Against:</h5>
-                        <div id="noEffectTypes"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Pokedex Search Section -->
-        <!-- <div class="pokedex" id="pokemonCards"></div>
-    </main>
-    
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    <script>
-        async function searchPokemon() {
-            const query = document.getElementById('searchInput').value.trim();
-            const pokemonCardsDiv = document.getElementById('pokemonCards');
-            
-            if (query === '') {
-                pokemonCardsDiv.innerHTML = '<p>No Pokémon found</p>';
-                return;
-            }
-
-            const response = await fetch(`/search?query=${query}`);
-            if (!response.ok) {
-                console.error('Network response was not ok');
-                pokemonCardsDiv.innerHTML = '<p>Error fetching Pokémon</p>';
-                return;
-            }
-            
-            const pokemonList = await response.json();
-            displayPokemonCards(pokemonList);
-        }
-
-        function displayPokemonCards(pokemonList) {
-            const pokemonCardsDiv = document.getElementById('pokemonCards');
-            pokemonCardsDiv.innerHTML = ''; // Clear previous results
-
-            if (pokemonList.length === 0) {
-                pokemonCardsDiv.innerHTML = '<p>No Pokémon found</p>';
-                return;
-            }
-
-            pokemonList.forEach(pokemon => {
-                const card = document.createElement('div');
-                card.className = 'pokemon-card';
-                card.innerHTML = `
-                    <h2>${pokemon.name}</h2>
-                    <img src="${pokemon.image_url}" alt="${pokemon.name}" class="pokemon-image">
-                    <p>Type: ${pokemon.type}</p>
-                    <p>ID: ${pokemon.ID}</p>
-                    <p>HP: ${pokemon.hp}</p>
-                    <p>Attack: ${pokemon.attack}</p>
-                    <p>Defense: ${pokemon.defense}</p>
-                    <p>Speed: ${pokemon.speed}</p>
-                    <p>Ability: ${pokemon.abilities}</p>
-                `;
-                pokemonCardsDiv.appendChild(card);
-            });
-        }
-
-        // Load Pokemon list when page loads for the battle helper
-        fetch('/api/pokemon')
-            .then(response => response.json())
-            .then(pokemon => {
-                const select = document.getElementById('pokemonSelect');
-                pokemon.forEach(p => {
-                    const option = document.createElement('option');
-                    option.value = p.id;
-                    option.textContent = `#${p.id} ${p.name}`;
-                    select.appendChild(option);
-                });
-            });
-
-        // Load Pokemon details when selected in the battle helper
-        document.getElementById('pokemonSelect').addEventListener('change', function() {
-            const id = this.value;
-            if (!id) {
-                document.getElementById('pokemonInfo').style.display = 'none';
-                return;
-            }
-
-            fetch(`/api/pokemon/${id}`)
-                .then(response => response.json())
-                .then(pokemon => {
-                    document.getElementById('pokemonInfo').style.display = 'block';
-                    document.getElementById('pokemonId').textContent = pokemon.id;
-                    document.getElementById('pokemonName').textContent = pokemon.name;
-                    document.getElementById('pokemonType').textContent = pokemon.type;
-
-                    // Clear previous type advantages
-                    document.getElementById('superEffectiveTypes').innerHTML = '';
-                    document.getElementById('notEffectiveTypes').innerHTML = '';
-                    document.getElementById('noEffectTypes').innerHTML = '';
-
-                    // Display type advantages
-                    Object.entries(pokemon.type_advantages).forEach(([type, effectiveness]) => {
-                        const badge = document.createElement('span');
-                        badge.textContent = type;
-                        badge.className = 'type-badge';
-                        
-                        if (effectiveness === 2) {
-                            badge.classList.add('super-effective');
-                            document.getElementById('superEffectiveTypes').appendChild(badge);
-                        } else if (effectiveness === 0.5) {
-                            badge.classList.add('not-effective');
-                            document.getElementById('notEffectiveTypes').appendChild(badge);
-                        } else if (effectiveness === 0) {
-                            badge.classList.add('no-effect');
-                            document.getElementById('noEffectTypes').appendChild(badge);
-                        }
-                    });
-                });
-        });
-    </script>
-</body>
-</html> --> 
